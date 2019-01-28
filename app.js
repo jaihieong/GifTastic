@@ -1,5 +1,15 @@
 // console.log("working");
-var countryList = ["Albania", "Italy", "India", "Wales", "Nepal", "Korea", "Japan", "Morocco", "Spain", "New Zealand", "Kenya", "Portugal", "Netherlands", "Columbia", "Ireland", "France", "Greece", "United States", "Australia", "Switzerland", "Vietnam", "Iceland"];
+var countryList = ["Albania", "Italy", "India", "Wales", "Nepal", "Korea", "Russia", "Morocco", "Spain", ];
+// countryList = countryList.toUpperCase();
+function makeUpperCase(arr){
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = arr[i].toUpperCase();
+        newArr.push(arr[i]);
+    }
+    return newArr;
+};
+countryList = makeUpperCase(countryList);
 
 function renderButton(){
     //this function will create buttons of countries listed in countryList array.
@@ -54,6 +64,7 @@ function displayGiphy() {
             giphyImage.addClass("giphy");
             giphyImage.attr("data-state", "still");
             giphyImage.attr("data-number", i);
+            // Instead
 
             // Appending the paragraph and image tag to the newDiv
             newDiv.append(p);
@@ -98,11 +109,13 @@ $("#add-country").on("click", function(event) {
     // Preventing the buttons default behavior when clicked (which is submitting a form)
     event.preventDefault();
     // This line grabs the input from the textbox
-    var newCountry = $("#country-input").val().trim();
-
-    // Adding the movie from the textbox to our array
-    countryList.push(newCountry);
-
-    // Calling renderButtons which handles the processing of our movie array
+    var newCountry = $("#country-input").val().trim().toUpperCase();
+    
+    if (!countryList.includes(newCountry)){
+        countryList.push(newCountry);
+    } else {
+        alert("Duplicate country name. Try a new country =)");
+    }
+    
     renderButton();
 });
